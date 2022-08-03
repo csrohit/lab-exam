@@ -20,7 +20,6 @@
 #include "main.h"
 #include "cmsis_os.h"
 
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -46,7 +45,6 @@ RTC_HandleTypeDef hrtc;
 UART_HandleTypeDef huart2;
 
 osThreadId defaultTaskHandle;
-osSemaphoreId xSwitchSemaHandle;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -64,6 +62,28 @@ void StartDefaultTask(void const * argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+void blinking_task(void * pvParam){
+
+
+	while(1){
+		vTaskDelay(200/portTICK_RATE_MS);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+		vTaskDelay(200/portTICK_RATE_MS);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
+		vTaskDelay(200/portTICK_RATE_MS);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+		vTaskDelay(200/portTICK_RATE_MS);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
+
+		vTaskDelay(200/portTICK_RATE_MS);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
+
+	}
+}
 
 /* USER CODE END 0 */
 
@@ -105,11 +125,6 @@ int main(void)
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
-  /* Create the semaphores(s) */
-  /* definition and creation of xSwitchSema */
-  osSemaphoreDef(xSwitchSema);
-  xSwitchSemaHandle = osSemaphoreCreate(osSemaphore(xSwitchSema), 1);
-
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
@@ -129,6 +144,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  xTaskCreate(blinking_task, "b1", 128, NULL, 2, NULL);
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */
