@@ -63,10 +63,22 @@ void StartDefaultTask(void const * argument);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void vLedBlinkPeriodic(void *pvParam) {
-	TickType_t xTicks = xTaskGetTickCount();
+
 	while(1) {
+		vTaskDelay(200 / portTICK_RATE_MS);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+		vTaskDelay(200 / portTICK_RATE_MS);
 		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
-		vTaskDelayUntil(&xTicks, 500 / portTICK_RATE_MS);
+		vTaskDelay(200 / portTICK_RATE_MS);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+		vTaskDelay(200 / portTICK_RATE_MS);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
+
+		vTaskDelay(200 / portTICK_RATE_MS);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
 	}
 	vTaskDelete(NULL);
 }
