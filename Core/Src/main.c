@@ -109,9 +109,6 @@ void vSwitchIntrHandler(void *pvParam) {
 				date.Year + 2022U, time.Hours, time.Minutes, time.Seconds);
 
 		HAL_UART_Transmit(&huart2, (uint8_t *)data, len, HAL_MAX_DELAY);
-		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
-		vTaskDelay(1000 / portTICK_RATE_MS);
-		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
 	}
 	vTaskDelete(NULL);
 }
