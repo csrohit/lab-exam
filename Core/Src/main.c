@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include<stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,7 +62,7 @@ void StartDefaultTask(void const * argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void vLedBlinkPeriodic(void *pvParam) {
+void vLedBlinkAPeriodic(void *pvParam) {
 
 	while(1) {
 		vTaskDelay(200 / portTICK_RATE_MS);
@@ -108,7 +108,7 @@ void vSwitchIntrHandler(void *pvParam) {
 		len = sprintf(data, "E3: Rohit Nimkar - %2d-%2d-%4d %2d:%2d:%2d\r\n", date.Date, date.Month,
 				date.Year + 2022U, time.Hours, time.Minutes, time.Seconds);
 
-		HAL_UART_Transmit(&huart2, data, len, HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart2, (uint8_t *)data, len, HAL_MAX_DELAY);
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
 		vTaskDelay(1000 / portTICK_RATE_MS);
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
@@ -173,11 +173,11 @@ int main(void)
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  xRet = xTaskCreate(vLedBlinkPeriodic, "LedBlink", 128, NULL, 2, NULL);
+  xRet = xTaskCreate(vLedBlinkAPeriodic, "blink", 128, NULL, 2, NULL);
   if(xRet != pdTRUE)
 	  Error_Handler();
 
-  xRet = xTaskCreate(vSwitchIntrHandler, "SwitchIntr", 128, NULL, configMAX_PRIORITIES-1, NULL);
+  xRet = xTaskCreate(vSwitchIntrHandler, "int_handle", 128, NULL, configMAX_PRIORITIES-1, NULL);
   if(xRet != pdTRUE)
 	  Error_Handler();
   /* USER CODE END RTOS_THREADS */

@@ -7,19 +7,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00005b58  08000190  08000190  00010190  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000124  08005ce8  08005ce8  00015ce8  2**2
+  2 .rodata       00000120  08005ce8  08005ce8  00015ce8  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08005e0c  08005e0c  00020074  2**0
+  3 .ARM.extab    00000000  08005e08  08005e08  00020074  2**0
                   CONTENTS
-  4 .ARM          00000008  08005e0c  08005e0c  00015e0c  2**2
+  4 .ARM          00000008  08005e08  08005e08  00015e08  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08005e14  08005e14  00020074  2**0
+  5 .preinit_array 00000000  08005e10  08005e10  00020074  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08005e14  08005e14  00015e14  2**2
+  6 .init_array   00000004  08005e10  08005e10  00015e10  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08005e18  08005e18  00015e18  2**2
+  7 .fini_array   00000004  08005e14  08005e14  00015e14  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000074  20000000  08005e1c  00020000  2**2
+  8 .data         00000074  20000000  08005e18  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
   9 .ccmram       00000000  10000000  10000000  00020074  2**0
                   CONTENTS
@@ -29,23 +29,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  12 .ARM.attributes 00000030  00000000  00000000  00020074  2**0
                   CONTENTS, READONLY
- 13 .debug_info   00017625  00000000  00000000  000200a4  2**0
+ 13 .debug_info   00017620  00000000  00000000  000200a4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 000031d8  00000000  00000000  000376c9  2**0
+ 14 .debug_abbrev 000031dc  00000000  00000000  000376c4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 000012d0  00000000  00000000  0003a8a8  2**3
+ 15 .debug_aranges 000012d0  00000000  00000000  0003a8a0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_ranges 00001198  00000000  00000000  0003bb78  2**3
+ 16 .debug_ranges 00001198  00000000  00000000  0003bb70  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  00023528  00000000  00000000  0003cd10  2**0
+ 17 .debug_macro  00023cf4  00000000  00000000  0003cd08  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00015353  00000000  00000000  00060238  2**0
+ 18 .debug_line   00015401  00000000  00000000  000609fc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d9344  00000000  00000000  0007558b  2**0
+ 19 .debug_str    000da2ea  00000000  00000000  00075dfd  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000050  00000000  00000000  0014e8cf  2**0
+ 20 .comment      00000050  00000000  00000000  001500e7  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00005388  00000000  00000000  0014e920  2**2
+ 21 .debug_frame  00005388  00000000  00000000  00150138  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -448,13 +448,13 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
  80005a0:	20000090 	.word	0x20000090
  80005a4:	20000144 	.word	0x20000144
 
-080005a8 <vLedBlinkPeriodic>:
+080005a8 <vLedBlinkAPeriodic>:
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void vLedBlinkPeriodic(void *pvParam) {
+void vLedBlinkAPeriodic(void *pvParam) {
  80005a8:	b580      	push	{r7, lr}
  80005aa:	b082      	sub	sp, #8
  80005ac:	af00      	add	r7, sp, #0
@@ -466,28 +466,28 @@ void vLedBlinkPeriodic(void *pvParam) {
  80005b2:	f003 fc65 	bl	8003e80 <vTaskDelay>
 		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
  80005b6:	f44f 5180 	mov.w	r1, #4096	; 0x1000
- 80005ba:	4819      	ldr	r0, [pc, #100]	; (8000620 <vLedBlinkPeriodic+0x78>)
+ 80005ba:	4819      	ldr	r0, [pc, #100]	; (8000620 <vLedBlinkAPeriodic+0x78>)
  80005bc:	f000 ff0d 	bl	80013da <HAL_GPIO_TogglePin>
 		vTaskDelay(200 / portTICK_RATE_MS);
  80005c0:	20c8      	movs	r0, #200	; 0xc8
  80005c2:	f003 fc5d 	bl	8003e80 <vTaskDelay>
 		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
  80005c6:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 80005ca:	4815      	ldr	r0, [pc, #84]	; (8000620 <vLedBlinkPeriodic+0x78>)
+ 80005ca:	4815      	ldr	r0, [pc, #84]	; (8000620 <vLedBlinkAPeriodic+0x78>)
  80005cc:	f000 ff05 	bl	80013da <HAL_GPIO_TogglePin>
 		vTaskDelay(200 / portTICK_RATE_MS);
  80005d0:	20c8      	movs	r0, #200	; 0xc8
  80005d2:	f003 fc55 	bl	8003e80 <vTaskDelay>
 		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
  80005d6:	f44f 4180 	mov.w	r1, #16384	; 0x4000
- 80005da:	4811      	ldr	r0, [pc, #68]	; (8000620 <vLedBlinkPeriodic+0x78>)
+ 80005da:	4811      	ldr	r0, [pc, #68]	; (8000620 <vLedBlinkAPeriodic+0x78>)
  80005dc:	f000 fefd 	bl	80013da <HAL_GPIO_TogglePin>
 		vTaskDelay(200 / portTICK_RATE_MS);
  80005e0:	20c8      	movs	r0, #200	; 0xc8
  80005e2:	f003 fc4d 	bl	8003e80 <vTaskDelay>
 		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
  80005e6:	f44f 4100 	mov.w	r1, #32768	; 0x8000
- 80005ea:	480d      	ldr	r0, [pc, #52]	; (8000620 <vLedBlinkPeriodic+0x78>)
+ 80005ea:	480d      	ldr	r0, [pc, #52]	; (8000620 <vLedBlinkAPeriodic+0x78>)
  80005ec:	f000 fef5 	bl	80013da <HAL_GPIO_TogglePin>
 
 		vTaskDelay(200 / portTICK_RATE_MS);
@@ -495,22 +495,22 @@ void vLedBlinkPeriodic(void *pvParam) {
  80005f2:	f003 fc45 	bl	8003e80 <vTaskDelay>
 		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
  80005f6:	f44f 5180 	mov.w	r1, #4096	; 0x1000
- 80005fa:	4809      	ldr	r0, [pc, #36]	; (8000620 <vLedBlinkPeriodic+0x78>)
+ 80005fa:	4809      	ldr	r0, [pc, #36]	; (8000620 <vLedBlinkAPeriodic+0x78>)
  80005fc:	f000 feed 	bl	80013da <HAL_GPIO_TogglePin>
 		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
  8000600:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 8000604:	4806      	ldr	r0, [pc, #24]	; (8000620 <vLedBlinkPeriodic+0x78>)
+ 8000604:	4806      	ldr	r0, [pc, #24]	; (8000620 <vLedBlinkAPeriodic+0x78>)
  8000606:	f000 fee8 	bl	80013da <HAL_GPIO_TogglePin>
 		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
  800060a:	f44f 4180 	mov.w	r1, #16384	; 0x4000
- 800060e:	4804      	ldr	r0, [pc, #16]	; (8000620 <vLedBlinkPeriodic+0x78>)
+ 800060e:	4804      	ldr	r0, [pc, #16]	; (8000620 <vLedBlinkAPeriodic+0x78>)
  8000610:	f000 fee3 	bl	80013da <HAL_GPIO_TogglePin>
 		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
  8000614:	f44f 4100 	mov.w	r1, #32768	; 0x8000
- 8000618:	4801      	ldr	r0, [pc, #4]	; (8000620 <vLedBlinkPeriodic+0x78>)
+ 8000618:	4801      	ldr	r0, [pc, #4]	; (8000620 <vLedBlinkAPeriodic+0x78>)
  800061a:	f000 fede 	bl	80013da <HAL_GPIO_TogglePin>
 		vTaskDelay(200 / portTICK_RATE_MS);
- 800061e:	e7c7      	b.n	80005b0 <vLedBlinkPeriodic+0x8>
+ 800061e:	e7c7      	b.n	80005b0 <vLedBlinkAPeriodic+0x8>
  8000620:	40020c00 	.word	0x40020c00
 
 08000624 <HAL_GPIO_EXTI_Callback>:
@@ -616,7 +616,7 @@ void vSwitchIntrHandler(void *pvParam) {
  80006d4:	4603      	mov	r3, r0
  80006d6:	f887 3057 	strb.w	r3, [r7, #87]	; 0x57
 
-		HAL_UART_Transmit(&huart2, data, len, HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart2, (uint8_t *)data, len, HAL_MAX_DELAY);
  80006da:	f897 3057 	ldrb.w	r3, [r7, #87]	; 0x57
  80006de:	b29a      	uxth	r2, r3
  80006e0:	f107 0124 	add.w	r1, r7, #36	; 0x24
@@ -636,7 +636,7 @@ void vSwitchIntrHandler(void *pvParam) {
  8000704:	f44f 4100 	mov.w	r1, #32768	; 0x8000
  8000708:	4805      	ldr	r0, [pc, #20]	; (8000720 <vSwitchIntrHandler+0xbc>)
  800070a:	f000 fe4d 	bl	80013a8 <HAL_GPIO_WritePin>
-	while(1) {
+		xSemaphoreTake(xSwitchSemaFlag, portMAX_DELAY);
  800070e:	e7b3      	b.n	8000678 <vSwitchIntrHandler+0x14>
  8000710:	200003ac 	.word	0x200003ac
  8000714:	20000344 	.word	0x20000344
@@ -715,7 +715,7 @@ int main(void)
  800076e:	6013      	str	r3, [r2, #0]
 
   /* USER CODE BEGIN RTOS_THREADS */
-  xRet = xTaskCreate(vLedBlinkPeriodic, "LedBlink", 128, NULL, 2, NULL);
+  xRet = xTaskCreate(vLedBlinkAPeriodic, "blink", 128, NULL, 2, NULL);
  8000770:	2300      	movs	r3, #0
  8000772:	9301      	str	r3, [sp, #4]
  8000774:	2302      	movs	r3, #2
@@ -733,7 +733,7 @@ int main(void)
 	  Error_Handler();
  800078c:	f000 f99a 	bl	8000ac4 <Error_Handler>
 
-  xRet = xTaskCreate(vSwitchIntrHandler, "SwitchIntr", 128, NULL, configMAX_PRIORITIES-1, NULL);
+  xRet = xTaskCreate(vSwitchIntrHandler, "int_handle", 128, NULL, configMAX_PRIORITIES-1, NULL);
  8000790:	2300      	movs	r3, #0
  8000792:	9301      	str	r3, [sp, #4]
  8000794:	2306      	movs	r3, #6
@@ -767,11 +767,11 @@ int main(void)
 	while (1)
  80007be:	e7fe      	b.n	80007be <main+0x9a>
  80007c0:	200003ac 	.word	0x200003ac
- 80007c4:	08005d3c 	.word	0x08005d3c
+ 80007c4:	08005d38 	.word	0x08005d38
  80007c8:	200003a8 	.word	0x200003a8
  80007cc:	08005d24 	.word	0x08005d24
  80007d0:	080005a9 	.word	0x080005a9
- 80007d4:	08005d30 	.word	0x08005d30
+ 80007d4:	08005d2c 	.word	0x08005d2c
  80007d8:	08000665 	.word	0x08000665
 
 080007dc <SystemClock_Config>:
@@ -2037,7 +2037,7 @@ LoopFillZerobss:
   ldr r1, =_edata
  8000e14:	20000074 	.word	0x20000074
   ldr r2, =_sidata
- 8000e18:	08005e1c 	.word	0x08005e1c
+ 8000e18:	08005e18 	.word	0x08005e18
   ldr r2, =_sbss
  8000e1c:	20000074 	.word	0x20000074
   ldr r4, =_ebss
@@ -4330,7 +4330,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  8001ae6:	bf00      	nop
  8001ae8:	40023c00 	.word	0x40023c00
  8001aec:	40023800 	.word	0x40023800
- 8001af0:	08005d60 	.word	0x08005d60
+ 8001af0:	08005d5c 	.word	0x08005d5c
  8001af4:	20000000 	.word	0x20000000
  8001af8:	20000004 	.word	0x20000004
 
@@ -4632,7 +4632,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8001d3c:	4618      	mov	r0, r3
  8001d3e:	bd80      	pop	{r7, pc}
  8001d40:	40023800 	.word	0x40023800
- 8001d44:	08005d70 	.word	0x08005d70
+ 8001d44:	08005d6c 	.word	0x08005d6c
 
 08001d48 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -4658,7 +4658,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8001d64:	4618      	mov	r0, r3
  8001d66:	bd80      	pop	{r7, pc}
  8001d68:	40023800 	.word	0x40023800
- 8001d6c:	08005d70 	.word	0x08005d70
+ 8001d6c:	08005d6c 	.word	0x08005d6c
 
 08001d70 <HAL_RCC_GetClockConfig>:
   * will be configured.
@@ -10469,9 +10469,9 @@ BaseType_t xReturn;
  8003d9a:	3720      	adds	r7, #32
  8003d9c:	46bd      	mov	sp, r7
  8003d9e:	bd80      	pop	{r7, pc}
- 8003da0:	08005d98 	.word	0x08005d98
- 8003da4:	08005db8 	.word	0x08005db8
- 8003da8:	08005d78 	.word	0x08005d78
+ 8003da0:	08005d94 	.word	0x08005d94
+ 8003da4:	08005db4 	.word	0x08005db4
+ 8003da8:	08005d74 	.word	0x08005d74
 
 08003dac <prvAddNewTaskToReadyList>:
 /*-----------------------------------------------------------*/
@@ -10851,7 +10851,7 @@ BaseType_t xReturn;
  8003f96:	46bd      	mov	sp, r7
  8003f98:	bd80      	pop	{r7, pc}
  8003f9a:	bf00      	nop
- 8003f9c:	08005d58 	.word	0x08005d58
+ 8003f9c:	08005d54 	.word	0x08005d54
  8003fa0:	08004559 	.word	0x08004559
  8003fa4:	20000564 	.word	0x20000564
  8003fa8:	20000440 	.word	0x20000440
@@ -14387,10 +14387,10 @@ uint8_t *puc;
  80052fa:	4798      	blx	r3
  80052fc:	3601      	adds	r6, #1
  80052fe:	e7f2      	b.n	80052e6 <__libc_init_array+0x1e>
- 8005300:	08005e14 	.word	0x08005e14
- 8005304:	08005e14 	.word	0x08005e14
- 8005308:	08005e14 	.word	0x08005e14
- 800530c:	08005e18 	.word	0x08005e18
+ 8005300:	08005e10 	.word	0x08005e10
+ 8005304:	08005e10 	.word	0x08005e10
+ 8005308:	08005e10 	.word	0x08005e10
+ 800530c:	08005e14 	.word	0x08005e14
 
 08005310 <__retarget_lock_acquire_recursive>:
  8005310:	4770      	bx	lr
@@ -15052,11 +15052,11 @@ uint8_t *puc;
  80058e8:	f000 f87a 	bl	80059e0 <_printf_i>
  80058ec:	e7eb      	b.n	80058c6 <_svfiprintf_r+0x1c2>
  80058ee:	bf00      	nop
- 80058f0:	08005dd8 	.word	0x08005dd8
- 80058f4:	08005de2 	.word	0x08005de2
+ 80058f0:	08005dd4 	.word	0x08005dd4
+ 80058f4:	08005dde 	.word	0x08005dde
  80058f8:	00000000 	.word	0x00000000
  80058fc:	0800564d 	.word	0x0800564d
- 8005900:	08005dde 	.word	0x08005dde
+ 8005900:	08005dda 	.word	0x08005dda
 
 08005904 <_printf_common>:
  8005904:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -15392,8 +15392,8 @@ uint8_t *puc;
  8005c1c:	f104 0619 	add.w	r6, r4, #25
  8005c20:	e7f5      	b.n	8005c0e <_printf_i+0x22e>
  8005c22:	bf00      	nop
- 8005c24:	08005de9 	.word	0x08005de9
- 8005c28:	08005dfa 	.word	0x08005dfa
+ 8005c24:	08005de5 	.word	0x08005de5
+ 8005c28:	08005df6 	.word	0x08005df6
 
 08005c2c <memmove>:
  8005c2c:	4288      	cmp	r0, r1
